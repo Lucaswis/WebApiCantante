@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-lg-4 col-md-6 col-xs-12 carta" *ngFor="let cant of cantantes">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <h2>{{cant.id}}</h2>
+        <mat-card-title>{{cant.name}}</mat-card-title>
+        <mat-card-subtitle>{{cant.kindOfMusic}}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content *ngFor="let cancion of cant.Cancion">
+        <p>{{cancion.nombreCancion}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <a routerLink="/cancion" class="link">Agregar nueva cancion</a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="col-lg-4 col-md-6 col-xs-12 carta">
+    <mat-card class="cartaCantante">
+      <mat-card-header>
+        <h2>Agregar un nuevo cantante</h2>
+      </mat-card-header>
+      <form [formGroup]="form" (ngSubmit)="agregarNuevoCantante($event)">
+        <p>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Nombre:</mat-label>
+            <input matInput placeholder="Name" formControlName="name" value="Nombre">
+          </mat-form-field>
+
+        </p>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Tipo Musica:</mat-label>
+          <input matInput placeholder="Tipo Musica" formControlName="kindOfMusic" value="Tipo Musica">
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Guardar nuevo cantante</button>
+      </form>
+    </mat-card>
+  </div>
+
+  <div class="col-lg-4 col-md-6 col-xs-12 carta">
+    <mat-card class="cartaCantante">
+      <mat-card-header>
+        <h2>Agregar una nueva cancion</h2>
+      </mat-card-header>
+      <form [formGroup]="formCancion" (ngSubmit)="agregarNuevaCancion($event)">
+        <mat-form-field class="example-full-width">
+          <mat-label>Id cantante:</mat-label>
+          <input matInput placeholder="Id Cantante" formControlName="idCantante" value="ID cantante">
+        </mat-form-field><br>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Nombre:</mat-label>
+          <input matInput placeholder="Nombre" formControlName="name" value="Nombre">
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Guardar nueva cancion</button>
+      </form>
+    </mat-card>
+  </div>
+  <div class="col-md-6">
+    <mat-card>
+      <form [formGroup]="formCantanteSearch" (ngSubmit)="cantantePorNombre($event)">
+
+        <mat-form-field class="example-full-width">
+          <mat-label> Ingrese el nombre:</mat-label>
+          <input matInput placeholder="Nombre" formControlName="name" value="Nombre">
+        </mat-form-field>
+        <button type="submit">Buscar nuevo cantante</button>
+
+
+      </form>
+
+      <div *ngIf="cantanteBuscado">
+        <mat-card style="background-color: white; color: black;" class="example-card" *ngFor="let cant of cantanteBuscado">
+          <mat-card-header>
+            Cantante obtenido
+          </mat-card-header>
+          <mat-card-content>
+            <p>Nombre: {{cant.name}}</p>
+            <p>Tipo de musica: {{cant.kindOfMusic}}</p>
+          </mat-card-content>
+
+        </mat-card>
+
+      </div>
+    </mat-card>
+  </div>
+</div>
